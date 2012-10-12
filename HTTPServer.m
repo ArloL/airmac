@@ -672,7 +672,7 @@
 		
     }
 	
-	NSLog(@"Gewoon ok als we t niet weten :)");
+	NSLog(@"Just ok if we don't know :)");
 	CFHTTPMessageRef response = CFHTTPMessageCreateResponse(kCFAllocatorDefault, 200, NULL, kCFHTTPVersion1_1); // OK
 	[mess setResponse:response];
 	CFRelease(response);
