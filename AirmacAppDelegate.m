@@ -211,15 +211,16 @@
 
 // Airplay interaction with Quicktime
 - (void)videoSent:(NSString*)url startPosition:(float)start{
-	
-/*	[videoWindow makeKeyAndOrderFront:nil];
-	[moviePlayer setMovie:[QTMovie movieWithURL:[NSURL URLWithString:url] error:nil]];
-	[moviePlayer setDelegate:self]; */
+    /*
+     [videoWindow makeKeyAndOrderFront:nil];
+     [moviePlayer setMovie:[QTMovie movieWithURL:[NSURL URLWithString:url] error:nil]];
+     [moviePlayer setDelegate:self];
+     */
 	
 	NSString *_fullscreenScript = @"";
 	if (videoFullscreen)
 	{
-//			_fullscreenScript = @"tell application \"System Events\" to keystroke \"f\" using command down\n";
+        //_fullscreenScript = @"tell application \"System Events\" to keystroke \"f\" using command down\n";
         _fullscreenScript = @"delay 0.5 \n \
 									set presenting of document 1 to true \n";
 	}
@@ -232,16 +233,14 @@
 						play document 1 \n \
 						%@ \
 						end tell",url, _fullscreenScript];
+
 	NSAppleScript *openScript = [[NSAppleScript alloc] initWithSource:script];
 	[openScript executeAndReturnError:NULL];
-	[openScript release]; 
-	
-	
+	[openScript release];
 }
 
 - (void)videoDidPauseOrPlay:(BOOL)pause
 {
-	
 	NSString *playpause = @"play";
 	if (pause)
 	{
@@ -254,12 +253,10 @@
 	NSAppleScript *openScript = [[NSAppleScript alloc] initWithSource:script];
 	[openScript executeAndReturnError:NULL];
 	[openScript release]; 
-
 }
 
 - (void)videoDidScrubTo:(float)seconds
 {
-	
 	NSString *script = [NSString stringWithFormat:@"tell application \"QuickTime Player\"\n\
 						set current time of document 1 to %f \n \
 						end tell",seconds/1000000];
@@ -267,14 +264,10 @@
 	NSAppleScript *openScript = [[NSAppleScript alloc] initWithSource:script];
 	[openScript executeAndReturnError:NULL];
 	[openScript release];
-
-	
 }
 
 - (float)airplayDidAskPosition
 {
-	
-	
 	NSString *appleScriptSource = [NSString stringWithFormat:@"tell application\"QuickTime Player\"\n \
 								   set this_time to the current time of document 1 \n \
 								   return this_time \n \
@@ -293,17 +286,13 @@
 	else {
 		finalPosition = 0;
 	}
-
 	
 	return finalPosition;
-	
 }
 
 
 - (float)airplayDidAskRate
 {
-	
-	
 	NSString *appleScriptSource = [NSString stringWithFormat:@"tell application\"QuickTime Player\"\n \
 								   set this_rate to the rate of document 1 \n \
 								   return this_rate \n \
@@ -323,26 +312,19 @@
 		finalRate = 0;
 	}
 	
-	
 	return finalRate;
-	
 }
-
-
 
 - (void)videoClosed
 {
 	[imageWindow close];
-	
 
-	NSDictionary *fullScreenOptions = [[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
-																   forKey:NSFullScreenModeSetting] retain];
+	NSDictionary *fullScreenOptions = [[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSFullScreenModeSetting] retain];
 
 	[fullScreenbg setHidden:TRUE];
 	[[imageWindow contentView] exitFullScreenModeWithOptions:fullScreenOptions];
 
-
-	// Quicktime killen
+	// Kill Quicktime
 	NSString *script = [NSString stringWithFormat:@"tell application \"QuickTime Player\"\n\
 						close document 1\n \
 						end tell"];
@@ -353,24 +335,21 @@
 	
 	imageFullscreen = ([[NSUserDefaults standardUserDefaults] integerForKey:@"_startImageSlideshowFullScreenCheckBox"] == NSOnState);
 	videoFullscreen = ([[NSUserDefaults standardUserDefaults] integerForKey:@"_startVideoFullScreenCheckBox"] == NSOnState);
-
-	
 }
-// Image gedeelte
+
+#pragma mark - Image Area
+
 -(void)enterimageSlideshowfullscreen
 {
-	
 	NSScreen *mainScreen = [NSScreen mainScreen];
 	
-	NSDictionary *fullScreenOptions = [[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES]
-																   forKey:NSFullScreenModeSetting] retain];
+	NSDictionary *fullScreenOptions = [[NSDictionary dictionaryWithObject:[NSNumber numberWithBool:YES] forKey:NSFullScreenModeSetting] retain];
 	
 	[fullScreenbg setHidden:FALSE];
 	[[imageWindow contentView] enterFullScreenMode:mainScreen withOptions:fullScreenOptions];
 	[NSCursor setHiddenUntilMouseMoves:YES];
 	
 	[fullScreenBtn setImage:[NSImage imageNamed:@"windowed.png"]];
-	
 }
 
 -(void)exitimageSlideshowfullscreen
@@ -381,91 +360,66 @@
 	[fullScreenbg setHidden:TRUE];
 	[[imageWindow contentView] exitFullScreenModeWithOptions:fullScreenOptions];
 	
-	[fullScreenBtn setImage:[NSImage imageNamed:@"fullscreen.png"]];
-	
+	[fullScreenBtn setImage:[NSImage imageNamed:@"fullscreen.png"]];	
 }
 
 - (IBAction) toggleFullScreen:(id)sender
-{
-	
+{	
 	NSLog(@"toggleFullScreen");
 	
-	if (!imageFullscreen)
-	{
-		
+	if (!imageFullscreen) {
 		[self enterimageSlideshowfullscreen];
-		
-	}
-	else {
-
+	} else {
 		[self exitimageSlideshowfullscreen];
 		
-//		windowedModeLocation = CGPointMake([imageWindow frame].origin.x, [imageWindow frame].origin.y);
+        //windowedModeLocation = CGPointMake([imageWindow frame].origin.x, [imageWindow frame].origin.y);
 	}
 	imageFullscreen = !imageFullscreen;
-
-	
 }
 
-
-// Image slideshow!
+// Image slideshow
 - (void)photoSent:(NSData*)photoData
 {
-	
-	// We wisselen steeds van imageview, zodat we dat mooi kunnen animeren
+	// We still exchange of image view, so we can animate nicely
 	NSImage *img = [[NSImage alloc] initWithData:photoData];
 	NSBitmapImageRep *rep = [[img representations] objectAtIndex: 0];
 	
-	if (CurrentImageView == 1)
-	{
+	if (CurrentImageView == 1) {
 		[imageView2.animator setAlphaValue:1.0];
 		[imageView1.animator setAlphaValue:0.0];
 		CurrentImageView = 2;
 		[imageView2 setImage:img];
-	}
-	else {
+	} else {
 		[imageView2.animator setAlphaValue:0.0];
 		[imageView1.animator setAlphaValue:1.0];
 		CurrentImageView = 1;
 		[imageView1 setImage:img];
 	}
-
 	
-//	NSRect screenRect = [mainScreen visibleFrame];
-//	CGFloat xPos = (screenRect.size.width/2) - ([rep pixelsWide]/2);
-//	CGFloat yPos = (screenRect.size.height/2) + ([rep pixelsHigh]/2)+10+25; // Voor bovenbalk en menubalk
+    //NSRect screenRect = [mainScreen visibleFrame];
+    //CGFloat xPos = (screenRect.size.width/2) - ([rep pixelsWide]/2);
+    //CGFloat yPos = (screenRect.size.height/2) + ([rep pixelsHigh]/2)+10+25; // Voor bovenbalk en menubalk
 	
 	CGFloat xPos = [imageWindow frame].origin.x;
 	CGFloat yPos = [imageWindow frame].origin.y;
 	
-	
-
-	
-	if (imageFullscreen)
-	{
-		
+	if (imageFullscreen) {
 		[self enterimageSlideshowfullscreen];
-
-		
-	}
-	else {
+	} else {
 		[imageWindow setFrame:NSMakeRect(xPos, yPos, [rep pixelsWide] , [rep pixelsHigh]) display:YES animate:YES];
-	}
-
-		
+	}	
 		
 	[imageWindow makeKeyAndOrderFront:nil];
 
 	[img release];
 }
 
-// Voor de mouseover van de imageslideshow, wat de controls laat zien
+// For the mouseover of the image slideshow, which shows the controls
 - (void)setImageWindowHoverActions
 {
 	[[imageWindow contentView] updateTrackingAreas];
 	
-	if (imageHoverTracker)
-	{
+	if (imageHoverTracker) {
 		[[imageWindow contentView] removeTrackingArea:imageHoverTracker];
 		[imageHoverTracker release];
 	}
@@ -478,7 +432,6 @@
 
 - (void)mouseEntered:(NSEvent *)event
 {
-	
 	[NSAnimationContext beginGrouping];
 	[[NSAnimationContext currentContext] setDuration:0.2f];
 	
@@ -487,59 +440,41 @@
 	[NSAnimationContext endGrouping];
 	
 	hideCounter = 3;
-
 }
-
-
 
 -(void) autohideFullScreenBtn
 {
+	// Gets executed once every second
 	
-
-	// Word iedere seconde uitgevoerd
-	
-	if (hideCounter > 0)
-	{
+	if (hideCounter > 0) {
 		hideCounter--;
 	}
-	
-	
-	if (hideCounter  == 0)
-	{	
+
+	if (hideCounter  == 0) {
 		[[hoverControls animator] setAlphaValue:0.0];
 	}
-	
 }
-
 
 -(void) hideFullScreenBtn
 {
 	[[hoverControls animator] setAlphaValue:0.0];
-
 }
 
 - (void)mouseMoved:(NSEvent *)event
 {
-	
 	[NSAnimationContext beginGrouping];
 	[[NSAnimationContext currentContext] setDuration:0.2f];
 	
 	[[hoverControls animator] setAlphaValue:0.7];
 	
 	[NSAnimationContext endGrouping];
-
 	
 	hideCounter = 3;
-	
 }
 
 - (void)mouseExited:(NSEvent *)event
 {
-	
 	hideCounter = 3;
-
 }
-
-
 
 @end

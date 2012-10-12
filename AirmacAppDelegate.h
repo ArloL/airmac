@@ -43,11 +43,9 @@
 	IBOutlet NSMenu *myStatusMenu;
 	IBOutlet NSMenuItem *serverStatus;
 	IBOutlet NSMenuItem *toggleServer;
-	
-	
 }
-- (void) checkForUpdates;
 
+- (void) checkForUpdates;
 - (void) startServer;
 - (void) toggleServerStatusMenuItem:(BOOL)started;
 - (void)setImageWindowHoverActions;
