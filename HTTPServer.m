@@ -457,9 +457,9 @@
 							  <plist version=\"1.0\">\n \
 							  <dict>\n \
 							  \t<key>duration</key>\n \
-							  \t<real>0.0</real>\n \
+							  \t<real>%f</real>\n \
 							  \t<key>position</key>\n \
-							  \t<real>0.0</real>\n \
+							  \t<real>%f</real>\n \
 							  </dict>\n \
 							  </plist>",[duration floatValue],_playPosition];
 			
