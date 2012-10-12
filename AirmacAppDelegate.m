@@ -17,8 +17,6 @@
 
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
-	
-
 	[self checkForUpdates];
 	
 	[NSTimer scheduledTimerWithTimeInterval:1.0
@@ -44,11 +42,11 @@
 	
 	[self setImageWindowHoverActions];
 	
-	// Server starten
+	// Start the Server
 	server = [[HTTPServer alloc] init];
-    [server setType:@"_airplay._tcp."]; // Registreren van airplay service
-	[server setPort:7000]; // Maakt geen reet uit
-	
+    [server setType:@"_airplay._tcp."]; // Register as an AirPlay service
+	[server setPort:7000];
+
 	NSString *name = NSMakeCollectable(SCDynamicStoreCopyComputerName(NULL, NULL));
 	
     [server setName:[NSString stringWithFormat:@"%@ - Airmac",name]]; // Naam
@@ -140,6 +138,7 @@
 {
 	[errorWindow close];
 }
+
 - (void) toggleServerStatusMenuItem:(BOOL)started
 {
 
@@ -174,15 +173,11 @@
 
 - (IBAction) about:(id)sender
 {
-	
-		[aboutWindow makeKeyAndOrderFront:self];
-
-	
+    [aboutWindow makeKeyAndOrderFront:self];
 }
 
 -(void) windowWillClose:(NSNotification *)notification
 {
-	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	
 	[prefs setInteger:[_startImageSlideshowFullScreenCheckBox state] forKey:@"_startImageSlideshowFullScreenCheckBox"];
@@ -192,12 +187,10 @@
 	videoFullscreen = ([_startVideoFullScreenCheckBox state] == NSOnState);
 
 	[prefs synchronize];
-	
 }
 
 - (IBAction) preferences:(id)sender
 {
-	
 	NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
 	[prefs synchronize];
 
@@ -207,17 +200,14 @@
 	
 	[prefWindow makeKeyAndOrderFront:self];
 	[prefWindow setDelegate:self];
-
 }
 
 
 - (IBAction) quit:(id)sender
 {
-	
 	[server stop];
 	[NSApp terminate: nil];
 }
-
 
 // Airplay interaction with Quicktime
 - (void)videoSent:(NSString*)url startPosition:(float)start{
@@ -230,7 +220,7 @@
 	if (videoFullscreen)
 	{
 //			_fullscreenScript = @"tell application \"System Events\" to keystroke \"f\" using command down\n";
-			_fullscreenScript = @"delay 0.5 \n \
+        _fullscreenScript = @"delay 0.5 \n \
 									set presenting of document 1 to true \n";
 	}
 	
