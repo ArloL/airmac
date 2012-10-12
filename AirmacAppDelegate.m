@@ -80,7 +80,7 @@
 		int currentVersion = [[[[NSBundle mainBundle] infoDictionary] valueForKey:@"CFBundleVersion"] intValue];
 		
 		NSLog(@"Version : %i",newVersion);
-		NSLog(@"Curent version: %i",currentVersion);
+		NSLog(@"Current version: %i",currentVersion);
 
 		if (newVersion > currentVersion)
 		{
@@ -131,7 +131,7 @@
     } else {
 		_serverIsStarted = TRUE;
 		[self toggleServerStatusMenuItem:YES];
-        NSLog(@"Server gestart op poort %d", [server port]);
+        NSLog(@"Server started on port %d", [server port]);
     }
 	
 }
