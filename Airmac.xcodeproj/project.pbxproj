@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
 		256AC3DA0F4B6AC300CF3369 /* AirmacAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* AirmacAppDelegate.m */; };
+		27AD2B901628D7AE004B4030 /* HTTPServerRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AD2B8F1628D7AE004B4030 /* HTTPServerRequest.m */; };
+		27AD2B931628D824004B4030 /* HTTPConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 27AD2B921628D824004B4030 /* HTTPConnection.m */; };
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
@@ -37,6 +39,10 @@
 		256AC3D80F4B6AC300CF3369 /* AirmacAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirmacAppDelegate.h; sourceTree = "<group>"; };
 		256AC3D90F4B6AC300CF3369 /* AirmacAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirmacAppDelegate.m; sourceTree = "<group>"; };
 		256AC3F00F4B6AF500CF3369 /* Airmac_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airmac_Prefix.pch; sourceTree = "<group>"; };
+		27AD2B8E1628D7AE004B4030 /* HTTPServerRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPServerRequest.h; path = Airmac/HTTPServerRequest.h; sourceTree = "<group>"; };
+		27AD2B8F1628D7AE004B4030 /* HTTPServerRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPServerRequest.m; path = Airmac/HTTPServerRequest.m; sourceTree = "<group>"; };
+		27AD2B911628D824004B4030 /* HTTPConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HTTPConnection.h; path = Airmac/HTTPConnection.h; sourceTree = "<group>"; };
+		27AD2B921628D824004B4030 /* HTTPConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HTTPConnection.m; path = Airmac/HTTPConnection.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
@@ -88,6 +94,10 @@
 				FE70A4C61379C6330045737E /* HTTPServer.m */,
 				256AC3D80F4B6AC300CF3369 /* AirmacAppDelegate.h */,
 				256AC3D90F4B6AC300CF3369 /* AirmacAppDelegate.m */,
+				27AD2B8E1628D7AE004B4030 /* HTTPServerRequest.h */,
+				27AD2B8F1628D7AE004B4030 /* HTTPServerRequest.m */,
+				27AD2B911628D824004B4030 /* HTTPConnection.h */,
+				27AD2B921628D824004B4030 /* HTTPConnection.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -249,6 +259,8 @@
 				256AC3DA0F4B6AC300CF3369 /* AirmacAppDelegate.m in Sources */,
 				FE70A4C91379C6330045737E /* HTTPServer.m in Sources */,
 				FE70A4CA1379C6330045737E /* TCPServer.m in Sources */,
+				27AD2B901628D7AE004B4030 /* HTTPServerRequest.m in Sources */,
+				27AD2B931628D824004B4030 /* HTTPConnection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
