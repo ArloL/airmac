@@ -296,9 +296,9 @@
 	
     if ([method isEqual:@"GET"]) {
         NSURL *uri = [(NSURL *)CFHTTPMessageCopyRequestURL(request) autorelease];
-		NSLog(@"uri : %@",[uri absoluteURL]);
+		NSLog(@"uri : %@",[uri path]);
         
-		if ([[uri absoluteString] hasPrefix:@"/server-info"])
+		if ([[uri path] hasPrefix:@"/server-info"])
 		{
 			
 			NSData *data = [[NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n\
@@ -337,7 +337,7 @@
 			return;
 			
 		}
-		if ([[uri absoluteString] hasPrefix:@"/slideshow-features"])
+		if ([[uri path] hasPrefix:@"/slideshow-features"])
 		{
 			
 			
@@ -388,7 +388,7 @@
 			
 		}
 		
-		else if ([[uri absoluteString] hasPrefix:@"/playback-info"])
+		else if ([[uri path] hasPrefix:@"/playback-info"])
 		{
             
 			if (delegate && [delegate respondsToSelector:@selector(airplayDidAskPosition)]) {
@@ -439,7 +439,7 @@
 		NSURL *uri = [(NSURL *)CFHTTPMessageCopyRequestURL(request) autorelease];
 		NSLog(@"(POST) URI : %@",uri);
 		
-		if ([[uri absoluteString] hasPrefix:@"/reverse"])
+		if ([[uri path] hasPrefix:@"/reverse"])
 		{
 			
             
@@ -454,7 +454,7 @@
 			return;
 			
 		}
-		else if ([[uri absoluteString] hasPrefix:@"/play"])
+		else if ([[uri path] hasPrefix:@"/play"])
 		{
 			
 			_playPosition = 0;
@@ -518,7 +518,7 @@
 			return;
 			
 		}
-		else if ([[uri absoluteString] hasPrefix:@"/stop"])
+		else if ([[uri path] hasPrefix:@"/stop"])
 		{
 			
 			
@@ -536,10 +536,10 @@
 			
 		}
 		
-		else if ([[uri absoluteString] hasPrefix:@"/rate?value="])
+		else if ([[uri path] hasPrefix:@"/rate?value="])
 		{
 			
-			if ([[uri absoluteString] hasPrefix:@"/rate?value=1"])
+			if ([[uri path] hasPrefix:@"/rate?value=1"])
 			{
 				if (delegate && [delegate respondsToSelector:@selector(videoDidPauseOrPlay:)]) {
 					[delegate videoDidPauseOrPlay:FALSE];
@@ -563,7 +563,7 @@
 			return;
 			
 		}
-		else if ([[uri absoluteString] hasPrefix:@"/scrub?position="])
+		else if ([[uri path] hasPrefix:@"/scrub?position="])
 		{
 			
 			
@@ -594,8 +594,8 @@
 		
 		NSURL *uri = [(NSURL *)CFHTTPMessageCopyRequestURL(request) autorelease];
 		NSLog(@"(PUT) URI : %@",uri);
-		
-		if ([[uri absoluteString] hasPrefix:@"/photo"])
+
+		if ([[uri path] hasPrefix:@"/photo"])
 		{
 			
 			NSData *Body = [(NSData *)CFHTTPMessageCopyBody(request) autorelease];
@@ -604,10 +604,7 @@
 				[delegate photoSent:Body];
 			}
 			
-		}
-		else if ([[uri absoluteString] hasPrefix:@"/slideshows"])
-		{
-			
+		} else if ([[uri path] hasPrefix:@"/slideshows"]) {
 			NSData *Body = [(NSData *)CFHTTPMessageCopyBody(request) autorelease];
 			NSString *bodyString = [[NSString alloc] initWithData:Body encoding:NSASCIIStringEncoding];
 			NSString *Response = [(NSString *)CFHTTPMessageCopyAllHeaderFields(request) autorelease];
@@ -615,11 +612,7 @@
 			NSLog(@"Content : %@",bodyString);
 			
 			NSLog(@"We kunnen helaas nog geen slideshows afspelen, dus laten we code gewoon doorgaan zo.");
-			
-			
 		}
-		
-		
     }
 	
 	NSLog(@"Just ok if we don't know :)");
